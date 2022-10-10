@@ -4,8 +4,8 @@ namespace Domain
 {
     public class Subreddit
     {
-        private string Title { get; set; }
-        private List<Post> Posts { get; }
+        public string Title { get; set; }
+        public List<Post> Posts { get; set; }
 
         public Subreddit(string title)
         {

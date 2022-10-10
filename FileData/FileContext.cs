@@ -13,7 +13,7 @@ public class FileContext
         get
         {
             LoadData();
-            return DataContainer.Subreddits;
+            return DataContainer!.Subreddits;
         }
     }
     
@@ -22,7 +22,15 @@ public class FileContext
         get
         {
             LoadData();
-            return DataContainer.Users;
+            return DataContainer!.Users;
+        }
+    }
+    public ICollection<Award> Awards
+    {
+        get
+        {
+            LoadData();
+            return DataContainer!.Awards;
         }
     }
 
@@ -35,7 +43,8 @@ public class FileContext
             DataContainer = new()
             {
                 Subreddits = new List<Subreddit>(),
-                Users = new List<User>()
+                Users = new List<User>(),
+                Awards = new List<Award>()
             };
             return;
         }

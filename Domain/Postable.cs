@@ -4,15 +4,17 @@ namespace Domain
 {
     public abstract class Postable
     {
-        private string Body { get; set; }
-        private User User { get; set; }
-        private int NumUpvotes { get; set; }
-        private int NumDownvotes { get; set; }
-        private List<Comment> Comments { get;}
-        private List<Award> Awards { get;}
+        public int Id { get; set; }
+        public string Body { get; set; }
+        public User User { get; set; }
+        public int NumUpvotes { get; set; }
+        public int NumDownvotes { get; set; }
+        public List<Comment> Comments { get;}
+        public List<Award> Awards { get;}
 
-        protected Postable(string body, User user)
+        protected Postable(int id, string body, User user)
         {
+            Id = id;
             Body = body;
             User = user;
             NumUpvotes = 0;

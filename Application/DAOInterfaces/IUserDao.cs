@@ -1,7 +1,11 @@
-﻿namespace Application.DAOInterfaces
+﻿using Application.DTOs;
+using Domain;
+
+namespace Application.DAOInterfaces
 {
-    public class IUserDao
+    public interface IUserDao
     {
-        
+        public Task<User?> GetByUsername(String username);
+        public Task<User> Create(User user);
     }
 }

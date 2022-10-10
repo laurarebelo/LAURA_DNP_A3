@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Domain.DTOs;
+﻿using Application.DTOs;
+using Domain;
 
 namespace Application.LogicInterfaces
 {

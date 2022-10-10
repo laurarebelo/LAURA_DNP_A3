@@ -2,7 +2,7 @@
 {
     public class Comment : Postable
     {
-        public Comment(string body, User user) : base(body, user)
+        public Comment(int id, string body, User user) : base(id, body, user)
         {
             // :)
         }

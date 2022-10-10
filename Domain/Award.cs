@@ -2,11 +2,13 @@
 {
     public class Award
     {
-        private string title { get; set; }
+        public string Name { get; set; }
+        public int Id { get; set; }
 
-        public Award(string title)
+        public Award(string name, int id)
         {
-            this.title = title;
+            this.Name = name;
+            this.Id = id;
         }
     }
 }
