@@ -4,24 +4,23 @@ namespace Domain
 {
     public abstract class Postable
     {
+        public string Subreddit { get; set; }
         public int Id { get; set; }
         public string Body { get; set; }
         public User User { get; set; }
         public int NumUpvotes { get; set; }
         public int NumDownvotes { get; set; }
-        public List<Comment> Comments { get;}
-        public List<Award> Awards { get;}
+        public List<Award> Awards { get; set; }
 
-        protected Postable(int id, string body, User user)
+        protected Postable(int id, string body, User user, string subreddit)
         {
+            Subreddit = subreddit;
             Id = id;
             Body = body;
             User = user;
             NumUpvotes = 0;
             NumDownvotes = 0;
-            Comments = new List<Comment>();
             Awards = new List<Award>();
-
         }
 
         public void Upvote()
@@ -42,16 +41,6 @@ namespace Domain
         public void UndoDownvote()
         {
             NumDownvotes--;
-        }
-
-        public void AddComment(Comment comment)
-        {
-            Comments.Add(comment);
-        }
-
-        public void RemoveComment(Comment comment)
-        {
-            Comments.Remove(comment);
         }
 
         public void AddAward(Award award)

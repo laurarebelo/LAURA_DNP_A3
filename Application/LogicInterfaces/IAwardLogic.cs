@@ -5,5 +5,7 @@ namespace Application.LogicInterfaces;
 
 public interface IAwardLogic
 {
-    public Task<Award> Create(AwardCreationDto dto);
+    public Task<Award> CreateAsync(AwardCreationDto dto);
+    public Task<Post> AwardPost(AwardToPostDto dto);
+    public Task<Comment> AwardComment(AwardToCommentDto dto);
 }

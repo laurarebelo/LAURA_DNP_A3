@@ -1,4 +1,5 @@
 ﻿using Application.DAOInterfaces;
+using Application.DTOs;
 using Domain;
 
 namespace FileData.DAOs;
@@ -34,5 +35,53 @@ public class PostDao : IPostDao
             throw new Exception("That subreddit does not exist.");
         }
         return Task.FromResult(belongsTo.Posts.Count);
+    }
+
+    public Task<Post?> GetByIdAndSubreddit(string subreddit, int id)
+    {
+        Subreddit? existingSub =
+            context.Subreddits.FirstOrDefault(s => s.Title.Equals(subreddit, StringComparison.OrdinalIgnoreCase));
+        if (existingSub == null)
+        {
+            throw new Exception("This subreddit does not exist");
+        }
+
+        Post? existingPost =
+            existingSub.Posts.FirstOrDefault(p => p.Id == id);
+
+        return Task.FromResult(existingPost);
+    }
+
+    public Task<Post> UpvotePost(Post post)
+    {
+        post.Upvote();
+        context.SaveChanges();
+        return Task.FromResult(post);
+    }
+
+    public Task<Post> DownvotePost(Post post)
+    {
+        post.Downvote();
+        context.SaveChanges();
+        return Task.FromResult(post);
+    }
+
+    public Task<List<PostBrowseDto>> GetAllPostTitles(string subreddit)
+    {
+        List<PostBrowseDto> allPostTitles = new List<PostBrowseDto>();
+        Subreddit? subredditObj =
+            context.Subreddits.FirstOrDefault(s => s.Title.Equals(subreddit, StringComparison.OrdinalIgnoreCase));
+        if (subredditObj == null)
+        {
+            throw new Exception("There is no such subreddit.");
+        }
+        
+        foreach (var post in subredditObj.Posts)
+        {
+            PostBrowseDto item = new PostBrowseDto(post.Title, post.Id);
+            allPostTitles.Add(item);
+        }
+
+        return Task.FromResult(allPostTitles);
     }
 }

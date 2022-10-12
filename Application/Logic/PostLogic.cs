@@ -29,4 +29,31 @@ public class PostLogic : IPostLogic
         Post created = await postDao.Create(newPost);
         return created;
     }
+
+    public async Task<Post> UpvotePost(PostVoteDto dto)
+    {
+        Post? whichPost = await postDao.GetByIdAndSubreddit(dto.subreddit, dto.postId);
+        if (whichPost == null)
+        {
+            throw new("There is no such post");
+        }
+
+        return await postDao.UpvotePost(whichPost);
+    }
+
+    public async Task<Post> DownvotePost(PostVoteDto dto)
+    {
+        Post? whichPost = await postDao.GetByIdAndSubreddit(dto.subreddit, dto.postId);
+        if (whichPost == null)
+        {
+            throw new("There is no such post");
+        }
+
+        return await postDao.DownvotePost(whichPost);
+    }
+
+    public async Task<List<PostBrowseDto>> GetAllPostTitles(string subreddit)
+    {
+        return await postDao.GetAllPostTitles(subreddit);
+    }
 }

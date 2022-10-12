@@ -30,4 +30,35 @@ public class SubredditsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
+    
+    [HttpGet]
+    public async Task<ActionResult<Subreddit>> GetByTitle(String title)
+    {
+        try
+        {
+            var subreddit = await subredditLogic.GetByTitle(title);
+            return Ok(subreddit);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    [Route("all")]
+    public async Task<ActionResult<List<string>>> GetAllTitles()
+    {
+        try
+        {
+            var subreddits = await subredditLogic.GetAllTitles();
+            return Ok(subreddits);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }

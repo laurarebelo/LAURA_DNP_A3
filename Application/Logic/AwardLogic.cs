@@ -14,19 +14,27 @@ public class AwardLogic : IAwardLogic
         this.awardDao = dao;
     }
 
-    public async Task<Award> Create(AwardCreationDto dto)
+    public async Task<Award> CreateAsync(AwardCreationDto dto)
     {
         Award? existing = await awardDao.GetByName(dto.Name);
         if (existing != null)
         {
             throw new Exception("There is already an award with that name.");
         }
-
-        int newId = awardDao.GetNextId().Result;
         
-        Award newAward = new Award(dto.Name, newId);
+        Award newAward = new Award(dto.Name);
         Award created = await awardDao.Create(newAward);
         return created;
 
+    }
+
+    public Task<Post> AwardPost(AwardToPostDto dto)
+    {
+        return awardDao.AwardAPost(dto);
+    }
+
+    public Task<Comment> AwardComment(AwardToCommentDto dto)
+    {
+        return awardDao.AwardAComment(dto);
     }
 }

@@ -1,4 +1,5 @@
 using Application.DAOInterfaces;
+using Application.DTOs;
 using Application.Logic;
 using Application.LogicInterfaces;
 using FileData;
@@ -25,6 +26,9 @@ builder.Services.AddScoped<IPostLogic, PostLogic>();
 
 builder.Services.AddScoped<IAwardDao, AwardDao>();
 builder.Services.AddScoped<IAwardLogic, AwardLogic>();
+
+builder.Services.AddScoped<ICommentDao, CommentDao>();
+builder.Services.AddScoped<ICommentLogic, CommentLogic>();
 
 
 var app = builder.Build();

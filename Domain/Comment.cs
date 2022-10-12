@@ -1,10 +1,13 @@
-﻿namespace Domain
+﻿using System;
+
+namespace Domain
 {
     public class Comment : Postable
     {
-        public Comment(int id, string body, User user) : base(id, body, user)
+        public int PostId { get; set; }
+        public Comment(int id, int postid, string body, User user, string subreddit) : base(id, body, user, subreddit)
         {
-            // :)
+            PostId = postid;
         }
     }
 }

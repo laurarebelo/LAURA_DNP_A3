@@ -6,4 +6,7 @@ namespace Application.LogicInterfaces;
 public interface IPostLogic
 {
   public Task<Post> CreateAsync(PostCreationDto dto);
+  public Task<Post> UpvotePost(PostVoteDto dto);
+  public Task<Post> DownvotePost(PostVoteDto dto);
+  public Task<List<PostBrowseDto>> GetAllPostTitles(string subreddit);
 }

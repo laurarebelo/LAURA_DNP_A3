@@ -19,4 +19,14 @@ public class SubredditLogic : ISubredditLogic
     {
         return subredditDao.Create(new Subreddit(dto.Title));
     }
+
+    public Task<Subreddit?> GetByTitle(string title)
+    {
+        return subredditDao.GetByTitle(title);
+    }
+
+    public Task<List<string>> GetAllTitles()
+    {
+        return subredditDao.GetAllTitles();
+    }
 }
