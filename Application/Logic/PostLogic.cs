@@ -1,7 +1,7 @@
 ﻿using Application.DAOInterfaces;
-using Application.DTOs;
 using Application.LogicInterfaces;
 using Domain;
+using Domain.DTOs;
 
 namespace Application.Logic;
 
@@ -55,5 +55,10 @@ public class PostLogic : IPostLogic
     public async Task<List<PostBrowseDto>> GetAllPostTitles(string subreddit)
     {
         return await postDao.GetAllPostTitles(subreddit);
+    }
+
+    public Task<IEnumerable<Post>> Get(PostSearchParameters searchParams)
+    {
+        return postDao.Get(searchParams);
     }
 }

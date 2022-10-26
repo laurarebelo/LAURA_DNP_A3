@@ -1,7 +1,7 @@
 ﻿using Application.DAOInterfaces;
-using Application.DTOs;
 using Application.LogicInterfaces;
 using Domain;
+using Domain.DTOs;
 
 namespace Application.Logic;
 
@@ -23,12 +23,18 @@ public class UserLogic : IUserLogic
         User toCreate = new User
         {
             Username = dto.UserName,
-            Password = dto.Password
+            Password = dto.Password,
+            Email = dto.Email,
+            Role = dto.Role
         };
     
         User created = await userDao.Create(toCreate);
     
         return created;
     }
-    
+
+    public Task<IEnumerable<User>> GetAllUsers()
+    {
+        return userDao.GetAllUsers();
+    }
 }

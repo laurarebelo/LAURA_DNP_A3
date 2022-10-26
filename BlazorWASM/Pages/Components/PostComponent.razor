@@ -1,0 +1,17 @@
+﻿@namespace Components
+<link href="css/comment.css" rel="stylesheet"/>
+
+<div class="comment">
+    <p class="username">@Username</p>
+    <h3>@Title</h3>
+    <p>@Body</p>
+    <button class="minibutton">↑</button><span>@NumUpvotes</span><button class="minibutton">↓</button><span>@NumDownvotes</span>
+</div>
+
+@code {
+    public string Username { get; set; }
+    public string Title { get; set; }
+    public string Body { get; set; }
+    public string NumUpvotes { get; set; }
+    public string NumDownvotes { get; set; }
+}

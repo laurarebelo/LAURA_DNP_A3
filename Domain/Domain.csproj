@@ -11,6 +11,7 @@
         <AssemblyName>Domain</AssemblyName>
         <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
+        <LangVersion>latest</LangVersion>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,6 +41,18 @@
     <ItemGroup>
         <Compile Include="Award.cs" />
         <Compile Include="Comment.cs" />
+        <Compile Include="DTOs\AwardCreationDto.cs" />
+        <Compile Include="DTOs\AwardToCommentDto.cs" />
+        <Compile Include="DTOs\AwardToPostDto.cs" />
+        <Compile Include="DTOs\CommentCreationDto.cs" />
+        <Compile Include="DTOs\CommentVoteDto.cs" />
+        <Compile Include="DTOs\PostBrowseDto.cs" />
+        <Compile Include="DTOs\PostCreationDto.cs" />
+        <Compile Include="DTOs\PostSearchParameters.cs" />
+        <Compile Include="DTOs\PostVoteDto.cs" />
+        <Compile Include="DTOs\SingleSearchParameterDto.cs" />
+        <Compile Include="DTOs\SubredditCreationDto.cs" />
+        <Compile Include="DTOs\UserCreationDto.cs" />
         <Compile Include="Post.cs" />
         <Compile Include="Postable.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />

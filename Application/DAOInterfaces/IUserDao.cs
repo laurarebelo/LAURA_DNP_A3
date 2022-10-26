@@ -1,5 +1,4 @@
-﻿using Application.DTOs;
-using Domain;
+﻿using Domain;
 
 namespace Application.DAOInterfaces
 {
@@ -7,5 +6,6 @@ namespace Application.DAOInterfaces
     {
         public Task<User?> GetByUsername(String username);
         public Task<User> Create(User user);
+        public Task<IEnumerable<User>> GetAllUsers();
     }
 }

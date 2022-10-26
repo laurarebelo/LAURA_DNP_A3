@@ -1,6 +1,6 @@
 ﻿using Application.DAOInterfaces;
-using Application.DTOs;
 using Domain;
+using Domain.DTOs;
 
 namespace FileData.DAOs;
 
@@ -71,13 +71,13 @@ public class AwardDao : IAwardDao
         return Task.FromResult(context.Awards.Count);
     }
 
-    public async Task<Post> AwardAPost(AwardToPostDto dto)
+    public async Task<Award> AwardAPost(AwardToPostDto dto)
     {
         Award desiredAward = await GetByName(dto.awardName);
         Post desiredPost = await GetPostInSubreddit(dto.subreddit, dto.postId);
         desiredPost.AddAward(desiredAward);
         context.SaveChanges();
-        return desiredPost;
+        return desiredAward;
     }
 
     public async Task<Comment> AwardAComment(AwardToCommentDto dto)
@@ -87,5 +87,10 @@ public class AwardDao : IAwardDao
         desiredComment.AddAward(desiredAward);
         context.SaveChanges();
         return desiredComment;
+    }
+
+    public Task<IEnumerable<Award>> GetAll()
+    {
+        return Task.FromResult(context.Awards.AsEnumerable());
     }
 }

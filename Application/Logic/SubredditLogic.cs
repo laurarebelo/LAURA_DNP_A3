@@ -1,7 +1,7 @@
 ﻿using Application.DAOInterfaces;
-using Application.DTOs;
 using Application.LogicInterfaces;
 using Domain;
+using Domain.DTOs;
 
 namespace Application.Logic;
 
@@ -28,5 +28,10 @@ public class SubredditLogic : ISubredditLogic
     public Task<List<string>> GetAllTitles()
     {
         return subredditDao.GetAllTitles();
+    }
+
+    public Task<IEnumerable<Subreddit>> GetAsync(SingleSearchParameterDto searchParameter)
+    {
+        return subredditDao.Get(searchParameter);
     }
 }

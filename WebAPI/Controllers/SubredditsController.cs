@@ -1,6 +1,6 @@
-﻿using Application.DTOs;
-using Application.LogicInterfaces;
+﻿using Application.LogicInterfaces;
 using Domain;
+using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -32,11 +32,11 @@ public class SubredditsController : ControllerBase
     }
     
     [HttpGet]
-    public async Task<ActionResult<Subreddit>> GetByTitle(String title)
+    public async Task<ActionResult<Subreddit>> Get(String? titleContains)
     {
         try
         {
-            var subreddit = await subredditLogic.GetByTitle(title);
+            var subreddit = await subredditLogic.GetAsync(new SingleSearchParameterDto(titleContains));
             return Ok(subreddit);
         }
         catch (Exception e)

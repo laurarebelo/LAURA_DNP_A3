@@ -1,7 +1,7 @@
 ﻿using Application.DAOInterfaces;
-using Application.DTOs;
 using Application.LogicInterfaces;
 using Domain;
+using Domain.DTOs;
 
 namespace Application.Logic;
 
@@ -36,5 +36,39 @@ public class CommentLogic : ICommentLogic
 
         Comment created = new Comment(id, dto.PostId, dto.Body, existingUser, dto.Subreddit);
         return await commentDao.CreateAsync(created);
+    }
+
+    public async Task<Comment> UpvoteComment(CommentVoteDto dto)
+    {
+        Post? existingPost = await postDao.GetByIdAndSubreddit(dto.Subreddit, dto.PostId);
+        if (existingPost == null)
+        {
+            throw new Exception("No such post.");
+        }
+
+        Comment? existingComment = await commentDao.Get(dto.Subreddit, dto.PostId, dto.CommentId);
+        if (existingComment == null)
+        {
+            throw new Exception("No such comment");
+        }
+
+        return commentDao.UpvoteComment(existingComment).Result;
+    }
+
+    public async Task<Comment> DownvoteComment(CommentVoteDto dto)
+    {
+        Post? existingPost = await postDao.GetByIdAndSubreddit(dto.Subreddit, dto.PostId);
+        if (existingPost == null)
+        {
+            throw new Exception("No such post.");
+        }
+
+        Comment? existingComment = await commentDao.Get(dto.Subreddit, dto.PostId, dto.CommentId);
+        if (existingComment == null)
+        {
+            throw new Exception("No such comment");
+        }
+
+        return commentDao.DownvoteComment(existingComment).Result;
     }
 }

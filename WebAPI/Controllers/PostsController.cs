@@ -1,6 +1,6 @@
-﻿using Application.DTOs;
-using Application.LogicInterfaces;
+﻿using Application.LogicInterfaces;
 using Domain;
+using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -21,7 +21,7 @@ public class PostsController : ControllerBase
         try
         {
             Post post = await postLogic.CreateAsync(dto);
-            return Created($"/subreddits/{post.Subreddit}/{post.Id}", post);
+            return Created($"/subreddits/{post.Subreddit}/posts/{post.Id}", post);
         }
         catch (Exception e)
         {
@@ -61,15 +61,14 @@ public class PostsController : ControllerBase
             return StatusCode(500, e.Message);
         }
     }
-    
+
     [HttpGet]
-    [Route("all")]
-    public async Task<ActionResult<List<PostBrowseDto>>> GetAllTitlesInASubreddit(string subreddit)
+    public async Task<ActionResult<Post>> Get(string subreddit, int? postId)
     {
         try
         {
-            var postTitles = await postLogic.GetAllPostTitles(subreddit);
-            return Ok(postTitles);
+            var post = await postLogic.Get(new PostSearchParameters(subreddit, postId));
+            return Ok(post);
         }
         catch (Exception e)
         {

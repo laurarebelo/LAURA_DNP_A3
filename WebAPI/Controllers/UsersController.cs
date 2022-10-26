@@ -1,6 +1,6 @@
-﻿using Application.DTOs;
-using Application.LogicInterfaces;
+﻿using Application.LogicInterfaces;
 using Domain;
+using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -23,6 +23,21 @@ public class UserController : ControllerBase
         {
             User user = await userLogic.CreateAsync(dto);
             return Created($"/users/{user.Username}", user);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<User>>> GetAllUsers()
+    {
+        try
+        {
+            var post = await userLogic.GetAllUsers();
+            return Ok(post);
         }
         catch (Exception e)
         {

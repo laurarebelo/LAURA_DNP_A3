@@ -1,6 +1,6 @@
 ﻿using Application.DAOInterfaces;
-using Application.DTOs;
 using Domain;
+using Domain.DTOs;
 
 namespace FileData.DAOs;
 
@@ -12,6 +12,7 @@ public class PostDao : IPostDao
     {
         this.context = context;
     }
+
     public Task<Post> Create(Post post)
     {
         Subreddit? belongsTo = context.Subreddits.FirstOrDefault(subreddit =>
@@ -34,10 +35,11 @@ public class PostDao : IPostDao
         {
             throw new Exception("That subreddit does not exist.");
         }
+
         return Task.FromResult(belongsTo.Posts.Count);
     }
 
-    public Task<Post?> GetByIdAndSubreddit(string subreddit, int id)
+    public Task<Post> GetByIdAndSubreddit(string subreddit, int id)
     {
         Subreddit? existingSub =
             context.Subreddits.FirstOrDefault(s => s.Title.Equals(subreddit, StringComparison.OrdinalIgnoreCase));
@@ -48,6 +50,11 @@ public class PostDao : IPostDao
 
         Post? existingPost =
             existingSub.Posts.FirstOrDefault(p => p.Id == id);
+
+        if (existingPost == null)
+        {
+            throw new Exception("There is not a post with that id.");
+        }
 
         return Task.FromResult(existingPost);
     }
@@ -75,7 +82,7 @@ public class PostDao : IPostDao
         {
             throw new Exception("There is no such subreddit.");
         }
-        
+
         foreach (var post in subredditObj.Posts)
         {
             PostBrowseDto item = new PostBrowseDto(post.Title, post.Id);
@@ -83,5 +90,30 @@ public class PostDao : IPostDao
         }
 
         return Task.FromResult(allPostTitles);
+    }
+
+    public Task<Post> GetPostById(string subreddit, int postId)
+    {
+        return GetByIdAndSubreddit(subreddit, postId);
+    }
+
+    public Task<IEnumerable<Post>> Get(PostSearchParameters searchParams)
+    {
+        Subreddit? subredditInQuestion = context.Subreddits.FirstOrDefault(s =>
+            s.Title.Equals(searchParams.subreddit, StringComparison.OrdinalIgnoreCase));
+
+        if (subredditInQuestion == null)
+        {
+            throw new Exception("There is no such subreddit.");
+        }
+
+        IEnumerable<Post> posts = subredditInQuestion.Posts;
+
+        if (searchParams.postId != null)
+        {
+            posts = posts.Where(p => p.Id == searchParams.postId);
+        }
+
+        return Task.FromResult(posts);
     }
 }

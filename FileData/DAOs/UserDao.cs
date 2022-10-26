@@ -27,4 +27,9 @@ public class UserDao : IUserDao
         context.SaveChanges();
         return Task.FromResult(user);
     }
+
+    public Task<IEnumerable<User>> GetAllUsers()
+    {
+        return Task.FromResult<IEnumerable<User>>(context.Users);
+    }
 }

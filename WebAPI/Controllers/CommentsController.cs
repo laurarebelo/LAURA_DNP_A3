@@ -1,6 +1,6 @@
-﻿using Application.DTOs;
-using Application.LogicInterfaces;
+﻿using Application.LogicInterfaces;
 using Domain;
+using Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers;
@@ -21,7 +21,39 @@ public class CommentsController : ControllerBase
         try
         {
             Comment comment = await commentLogic.CreateAsync(dto);
-            return Created($"/subreddits/{comment.Subreddit}/{comment.PostId}/{comment.Id}", comment);
+            return Ok(comment);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpPatch]
+    [Route("upvote")] 
+    public async Task<ActionResult<Comment>> UpvoteComment(CommentVoteDto dto)
+    {
+        try
+        {
+            Comment comment = await commentLogic.UpvoteComment(dto);
+            return Accepted($"/subreddits/{comment.Subreddit}/{comment.PostId}/comments/{comment.Id}", comment);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+    
+    [HttpPatch]
+    [Route("downvote")] 
+    public async Task<ActionResult<Comment>> DownvoteComment(CommentVoteDto dto)
+    {
+        try
+        {
+            Comment comment = await commentLogic.DownvoteComment(dto);
+            return Accepted($"/subreddits/{comment.Subreddit}/{comment.PostId}/comments/{comment.Id}", comment);
         }
         catch (Exception e)
         {

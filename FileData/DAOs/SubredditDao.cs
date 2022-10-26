@@ -1,6 +1,6 @@
 ﻿using Application.DAOInterfaces;
-using Application.DTOs;
 using Domain;
+using Domain.DTOs;
 
 namespace FileData.DAOs;
 
@@ -36,5 +36,16 @@ public class SubredditDao : ISubredditDao
         }
 
         return Task.FromResult(allTitles);
+    }
+
+    public Task<IEnumerable<Subreddit>> Get(SingleSearchParameterDto searchParameterDto)
+    {
+        IEnumerable<Subreddit> subreddits = context.Subreddits.AsEnumerable();
+        if (searchParameterDto.SearchParameter != null)
+        {
+            subreddits = context.Subreddits.Where(s => s.Title.Contains(searchParameterDto.SearchParameter, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return Task.FromResult(subreddits);
     }
 }
