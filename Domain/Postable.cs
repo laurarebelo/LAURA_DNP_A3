@@ -10,7 +10,6 @@ namespace Domain
         public User User { get; set; }
         public int NumUpvotes { get; set; }
         public int NumDownvotes { get; set; }
-        public List<Award> Awards { get; set; }
 
         protected Postable(int id, string body, User user, string subreddit)
         {
@@ -20,7 +19,6 @@ namespace Domain
             User = user;
             NumUpvotes = 0;
             NumDownvotes = 0;
-            Awards = new List<Award>();
         }
 
         public void Upvote()
@@ -41,16 +39,6 @@ namespace Domain
         public void UndoDownvote()
         {
             NumDownvotes--;
-        }
-
-        public void AddAward(Award award)
-        {
-            Awards.Add(award);
-        }
-
-        public void RemoveAward(Award award)
-        {
-            Awards.Remove(award);
         }
     }
 }

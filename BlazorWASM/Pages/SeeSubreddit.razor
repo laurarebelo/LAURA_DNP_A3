@@ -30,13 +30,10 @@
 
     [Parameter]
     public string Subreddit { get; set; }
-
-    private string msg = "";
     private IEnumerable<Post>? posts;
 
     protected override async Task OnInitializedAsync()
     {
-        msg = "";
         try
         {
             Console.WriteLine("Trying to get posts");
@@ -45,7 +42,6 @@
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
         }
     }
 

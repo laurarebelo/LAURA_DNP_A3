@@ -15,7 +15,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddScoped<IUserService, UserHttpClient>();
 builder.Services.AddScoped<ISubredditService, SubredditHttpClient>();
-builder.Services.AddScoped<IAwardService, AwardHttpClient>();
 builder.Services.AddScoped<IPostService, PostHttpClient>();
 builder.Services.AddScoped<ICommentService, CommentHttpClient>();
 builder.Services.AddScoped<IAuthService, JwtAuthService>();

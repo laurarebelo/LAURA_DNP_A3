@@ -5,7 +5,6 @@
 @using HttpClients.ClientInterfaces
 @using System.Security.Claims
 @inject IPostService postService
-@inject IAwardService awardService
 @inject NavigationManager navMgr
 
 <link href="css/comment.css" rel="stylesheet"/>
@@ -57,14 +56,9 @@ else
 
     [Parameter]
     public int PostId { get; set; }
-
-    private string msg = "";
     private Post post;
     private List<Comment> comments;
-    private List<Award> awards;
     private string loggedInUsername;
-    private IEnumerable<Award> existingAwards;
-    private String awardToGive = "Awards";
 
     private bool isLoggedIn;
 
@@ -72,13 +66,12 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        msg = "";
+        
         try
         {
             IEnumerable<Post> postsIsh = await postService.Get(Subreddit, PostId);
             post = postsIsh.First();
             comments = post.Comments;
-            awards = post.Awards;
 
             AuthenticationState authState = await AuthState;
             ClaimsPrincipal user = authState.User;
@@ -90,7 +83,6 @@ else
         catch (Exception e)
         {
             Console.WriteLine(e);
-            msg = e.Message;
         }
     }
 
@@ -111,15 +103,6 @@ else
         Comment result = await postService.Comment(new CommentCreationDto(PostId, commentContent, loggedInUsername, Subreddit));
         comments.Add(result);
         commentContent = "";
-        msg = "Successfully commented, maybe.";
-        return result;
-    }
-
-    protected async Task<Award> AwardPost()
-    {
-        Award result = await awardService.AwardPost(new AwardToPostDto(awardToGive, Subreddit, PostId));
-        awards.Add(result);
-        awardToGive = "";
         return result;
     }
 

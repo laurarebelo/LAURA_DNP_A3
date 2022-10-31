@@ -25,14 +25,7 @@ public class FileContext
             return DataContainer!.Users;
         }
     }
-    public ICollection<Award> Awards
-    {
-        get
-        {
-            LoadData();
-            return DataContainer!.Awards;
-        }
-    }
+   
 
     private void LoadData()
     {
@@ -43,8 +36,7 @@ public class FileContext
             DataContainer = new()
             {
                 Subreddits = new List<Subreddit>(),
-                Users = new List<User>(),
-                Awards = new List<Award>()
+                Users = new List<User>()
             };
             return;
         }

@@ -39,11 +39,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Award.cs" />
         <Compile Include="Comment.cs" />
-        <Compile Include="DTOs\AwardCreationDto.cs" />
-        <Compile Include="DTOs\AwardToCommentDto.cs" />
-        <Compile Include="DTOs\AwardToPostDto.cs" />
         <Compile Include="DTOs\CommentCreationDto.cs" />
         <Compile Include="DTOs\CommentVoteDto.cs" />
         <Compile Include="DTOs\PostBrowseDto.cs" />

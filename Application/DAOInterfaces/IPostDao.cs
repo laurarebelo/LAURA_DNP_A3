@@ -11,6 +11,5 @@ public interface IPostDao
     public Task<Post> UpvotePost(Post post);
     public Task<Post> DownvotePost(Post post);
     public Task<List<PostBrowseDto>> GetAllPostTitles(string subreddit);
-    public Task<Post> GetPostById(string subreddit, int postId);
     public Task<IEnumerable<Post>> Get(PostSearchParameters searchParams);
 }

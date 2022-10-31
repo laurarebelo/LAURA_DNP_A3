@@ -27,10 +27,6 @@ builder.Services.AddScoped<ISubredditLogic, SubredditLogic>();
 
 builder.Services.AddScoped<IPostDao, PostDao>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
-
-builder.Services.AddScoped<IAwardDao, AwardDao>();
-builder.Services.AddScoped<IAwardLogic, AwardLogic>();
-
 builder.Services.AddScoped<ICommentDao, CommentDao>();
 builder.Services.AddScoped<ICommentLogic, CommentLogic>();
 
