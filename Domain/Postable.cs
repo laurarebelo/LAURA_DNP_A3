@@ -20,6 +20,8 @@ namespace Domain
             NumUpvotes = 0;
             NumDownvotes = 0;
         }
+        
+        protected Postable(){}
 
         public void Upvote()
         {

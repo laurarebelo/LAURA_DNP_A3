@@ -5,13 +5,15 @@ namespace Domain
     public class Subreddit
     {
         public string Title { get; set; }
-        public List<Post> Posts { get; set; }
+        public ICollection<Post> Posts { get; set; }
 
         public Subreddit(string title)
         {
             Title = title;
             Posts = new List<Post>();
         }
+        
+        public Subreddit(){}
 
         public void AddPost(Post post)
         {

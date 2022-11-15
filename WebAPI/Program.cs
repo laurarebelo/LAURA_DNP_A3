@@ -2,6 +2,8 @@ using System.Text;
 using Application.DAOInterfaces;
 using Application.Logic;
 using Application.LogicInterfaces;
+using EfcDataAccess;
+using EfcDataAccess.DAOs;
 using FileData;
 using FileData.DAOs;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -18,16 +20,16 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<FileContext>();
-builder.Services.AddScoped<IUserDao, UserDao>();
+builder.Services.AddTransient<RedditContext>();
+builder.Services.AddScoped<IUserDao, UserEfcDao>();
 builder.Services.AddScoped<IUserLogic, UserLogic>();
 
-builder.Services.AddScoped<ISubredditDao, SubredditDao>();
+builder.Services.AddScoped<ISubredditDao, SubredditEfcDao>();
 builder.Services.AddScoped<ISubredditLogic, SubredditLogic>();
 
-builder.Services.AddScoped<IPostDao, PostDao>();
+builder.Services.AddScoped<IPostDao, PostEfcDao>();
 builder.Services.AddScoped<IPostLogic, PostLogic>();
-builder.Services.AddScoped<ICommentDao, CommentDao>();
+builder.Services.AddScoped<ICommentDao, CommentEfcDao>();
 builder.Services.AddScoped<ICommentLogic, CommentLogic>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();

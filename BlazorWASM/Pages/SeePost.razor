@@ -57,7 +57,7 @@ else
     [Parameter]
     public int PostId { get; set; }
     private Post post;
-    private List<Comment> comments;
+    private ICollection<Comment> comments;
     private string loggedInUsername;
 
     private bool isLoggedIn;

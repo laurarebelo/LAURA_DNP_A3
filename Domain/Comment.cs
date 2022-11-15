@@ -9,5 +9,7 @@ namespace Domain
         {
             PostId = postid;
         }
+        
+        public Comment(){}
     }
 }
